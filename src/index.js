@@ -15,6 +15,7 @@ function getProjectVersionFromMavenFile(fileContent) {
     var projectVersion;
 
     parser.parseString(fileContent, function (err, result) {
+      projectVersion = String(result.project.version);
       const isPropertyRegex = /\$\{(.+)\}/;
       const isProperty = projectVersion.match(isPropertyRegex);
       if (
@@ -26,8 +27,6 @@ function getProjectVersionFromMavenFile(fileContent) {
         result.project.properties[0][isProperty[1]][0]
       ) {
         projectVersion = result.project.properties[0][isProperty[1]][0];
-      } else {
-        projectVersion = String(result.project.version);
       }
     });
 
