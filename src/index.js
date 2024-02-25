@@ -60,8 +60,10 @@ function checkVersionUpdate(targetVersion, branchVersion, additionalFilesToCheck
     if (!result) {
         console.log("targetVersion: " + targetVersion);
         console.log("branchVersion: " + branchVersion);
-        console.log('semverDiff: ' + result);
         core.setFailed('You have to update the project version!');
+        core.summary.addRaw("Current Version:", branchVersion);
+        core.summary.addRaw("Next Version:", targetVersion);
+        core.summary.addRaw("🛑 You have to update the project version!");
     }
     else if (additionalFilesToCheck != undefined) {
         additionalFilesToCheck.forEach(file => {
